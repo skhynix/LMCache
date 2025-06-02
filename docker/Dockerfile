@@ -92,6 +92,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 ARG LMCACHE_COMMIT_ID=1
 COPY . /workspace/LMCache
 WORKDIR /workspace/LMCache
+
+RUN --mount=type=cache,target=/root/.cache/ccache \
+    --mount=type=cache,target=/root/.cache/pip \
+    . /opt/venv/bin/activate && \
+    uv pip install -e .
+
 RUN --mount=type=cache,target=/root/.cache/ccache \
     --mount=type=cache,target=/root/.cache/pip \
     . /opt/venv/bin/activate && \
